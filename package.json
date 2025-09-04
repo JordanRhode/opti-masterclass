@@ -6,13 +6,13 @@
     "build": "next build",
     "dev": "next dev",
     "format": "prettier --write .",
+    "gen-types": "graphql-codegen -r dotenv/config --config ./codegen.yaml",
     "lint": "eslint",
     "start": "next start"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "gen-types": "graphql-codegen -r dotenv/config --config ./codegen.yaml",
     "lucide-react": "^0.540.0",
     "next": "15.5.0",
     "react": "19.1.0",
