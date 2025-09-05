@@ -12,8 +12,10 @@ export default function TestimonialsBlock({
 }: TestimonialsBlockProps) {
   return (
     <section className="container mx-auto px-4 py-16">
-      <h2 className="mb-12 text-3xl font-bold">{title}</h2>
-      <div className="grid gap-8 md:grid-cols-3">
+      <h2 className="mb-12 text-3xl font-bold" data-epi-edit="title">
+        {title}
+      </h2>
+      <div className="grid gap-8 md:grid-cols-3" data-epi-edit="testimonials">
         {testimonials?.map((testimonialItem, index) => {
           const testimonial = castContent<TestimonialItemBlock>(
             testimonialItem,

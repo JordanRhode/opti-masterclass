@@ -31,10 +31,12 @@ export default function HeroBlock({
           <div className="relative h-48 w-48">
             <div
               className="absolute right-0 h-32 w-32 rounded-full"
+              data-epi-edit="decorationColorsPrimary"
               style={{ backgroundColor: decorationColorsPrimary ?? '#009379' }}
             />
             <div
               className="absolute bottom-0 left-0 h-40 w-40 rounded-full"
+              data-epi-edit="decorationColorsSecondary"
               style={{
                 backgroundColor: decorationColorsSecondary ?? '#ffd285',
               }}

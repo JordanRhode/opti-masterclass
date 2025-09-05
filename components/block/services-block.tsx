@@ -10,7 +10,7 @@ import { castContent } from '@/lib/optimizely/types/typeUtils';
 export default function ServicesBlock({ services }: ServicesBlockProps) {
   return (
     <section className="container mx-auto px-4 py-16">
-      <div className="grid gap-8 md:grid-cols-3">
+      <div className="grid gap-8 md:grid-cols-3" data-epi-edit="services">
         {services?.map((serviceItem, index) => {
           const service = castContent<ServiceItem>(serviceItem, 'ServiceItem');
           if (!service) return null;

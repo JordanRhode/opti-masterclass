@@ -13,8 +13,10 @@ export default function PortfolioGridBlock({
 }: PortfolioGridBlockProps) {
   return (
     <section className="container mx-auto px-4 py-16">
-      <h2 className="mb-12 text-3xl font-bold">{title}</h2>
-      <div className="grid gap-6 md:grid-cols-3">
+      <h2 className="mb-12 text-3xl font-bold" data-epi-edit="title">
+        {title}
+      </h2>
+      <div className="grid gap-6 md:grid-cols-3" data-epi-edit="items">
         {items?.map((item, index) => {
           const safeItem = castContent<PortfolioItemBlock>(
             item,
