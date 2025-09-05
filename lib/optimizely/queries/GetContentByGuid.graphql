@@ -1,6 +1,6 @@
 query GetContentByGuid($guid: String) {
   _Content(where: { _metadata: { key: { eq: $guid } } }) {
-    items {
+    item {
       _metadata {
         displayName
         version

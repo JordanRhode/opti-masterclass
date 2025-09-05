@@ -25,7 +25,7 @@ export default async function Page(props: {
     { preview: true }
   );
 
-  const blocks = componentData.data?._Component?.items;
+  const blocks = componentData.data?._Component?.item;
 
   return (
     <Suspense>
@@ -33,7 +33,7 @@ export default async function Page(props: {
         version={version}
         currentRoute={`/${locale}/draft/${version}/block/${key}`}
       />
-      <ContentAreaMapper blocks={blocks} preview />
+      <ContentAreaMapper blocks={[blocks]} preview />
     </Suspense>
   );
 }

@@ -15,7 +15,7 @@ export async function Footer({ locale }: { locale: string }) {
     { locales: locales },
     { cacheTag: 'optimizely-footer' }
   );
-  const footer = data?.Footer?.items?.[0];
+  const footer = data?.Footer?.item;
   if (!footer) {
     return null;
   }

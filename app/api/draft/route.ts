@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     return new NextResponse(errorsMessage, { status: 401 });
   }
 
-  const content = response.data?._Content?.items?.[0];
+  const content = response.data?._Content?.item;
   if (!content) {
     return new NextResponse('Bad Request', { status: 400 });
   }

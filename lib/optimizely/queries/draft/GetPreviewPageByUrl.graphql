@@ -10,7 +10,7 @@ query getPreviewPageByURL(
       _and: { _metadata: { url: { default: { eq: $slug } } } }
     }
   ) {
-    items {
+    item {
       blocks {
         ...ItemsInContentArea
       }

@@ -1,6 +1,6 @@
 query GetStartPage($locales: [Locales]) {
   StartPage(locale: $locales) {
-    items {
+    item {
       title
       shortDescription
       keywords
