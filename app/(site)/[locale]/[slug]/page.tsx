@@ -1,5 +1,7 @@
 import ContentAreaMapper from '@/components/content-area/mapper';
+import VisualBuilderExperienceWrapper from '@/components/visual-builder/wrapper';
 import { optimizely } from '@/lib/optimizely/fetch';
+import { SafeVisualBuilderExperience } from '@/lib/optimizely/types/experience';
 import {
   getValidLocale,
   mapPathWithoutLocale,
@@ -14,17 +16,34 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   const { locale, slug = '' } = await props.params;
   const locales = getValidLocale(locale);
+  const formattedSlug = `/${slug}`;
   const { data, errors } = await optimizely.getPageByURL({
     locales: [locales],
-    slug: `/${slug}`,
+    slug: formattedSlug,
   });
 
-  if (errors || !data?.CMSPage?.items?.[0]) {
+  if (errors) {
     return {};
   }
 
-  const page = data.CMSPage.items[0];
+  const page = data?.CMSPage?.items?.[0];
   if (!page) {
+    const experienceData = await optimizely.GetVisualBuilderBySlug({
+      locales: [locales],
+      slug: formattedSlug,
+    });
+
+    const experience = experienceData.data?.SEOExperience?.items?.[0];
+
+    if (experience) {
+      return {
+        title: experience?.title,
+        description: experience?.shortDescription || '',
+        keywords: experience?.keywords ?? '',
+        alternates: generateAlternates(locale, formattedSlug),
+      };
+    }
+
     return {};
   }
 
@@ -32,13 +51,13 @@ export async function generateMetadata(props: {
     title: page.title,
     description: page.shortDescription || '',
     keywords: page.keywords ?? '',
-    alternates: generateAlternates(locale, '/'),
+    alternates: generateAlternates(locale, formattedSlug),
   };
 }
 
 export async function generateStaticParams() {
   try {
-    const pageTypes = ['CMSPage'];
+    const pageTypes = ['CMSPage', 'SEOExperience'];
     const pathsResp = await optimizely.AllPages({ pageType: pageTypes });
     const paths = pathsResp.data?._Content?.items ?? [];
     const filterPaths = paths.filter(
@@ -74,6 +93,23 @@ export default async function CmsPage(props: {
   });
 
   if (errors || !data?.CMSPage?.items?.[0]) {
+    const experienceData = await optimizely.GetVisualBuilderBySlug({
+      locales: [locales],
+      slug: formattedSlug,
+    });
+
+    const experience = experienceData.data?.SEOExperience?.items?.[0] as
+      | SafeVisualBuilderExperience
+      | undefined;
+
+    if (experience) {
+      return (
+        <Suspense>
+          <VisualBuilderExperienceWrapper experience={experience} />
+        </Suspense>
+      );
+    }
+
     return notFound();
   }
 
