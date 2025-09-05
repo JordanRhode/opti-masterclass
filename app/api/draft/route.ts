@@ -6,12 +6,11 @@ import { optimizely } from '@/lib/optimizely/fetch';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const token = searchParams.get('preview_token');
   const key = searchParams.get('key');
   const ver = searchParams.get('ver');
   const loc = searchParams.get('loc');
 
-  if (!ver || !token || !key) {
+  if (!ver || !key) {
     return notFound();
   }
 
